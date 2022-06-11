@@ -2,18 +2,6 @@
 
 pragma solidity ^0.8.0;
 
-/*
-Первый проект на Solidity и в целом знакомство с сетью Ethereum.
-Не писал тесты (не знаком с фреймворками и js, что заняло бы прилично времени), соответственно что-то можно лучше оптимизировать
-Не реализовано сохранение транзакций при вызове метода `updateBalance`, но в задании это и не указано и, как я понимаю, это в целом дорогое удовольствие.
-
-Расход газа:
-- saveRecord():    ~75000
-- updateBalance(): ~28000
-
-My Ethereum addr: 0x93453dE2aeA091FAE1fDB7ae5D8cD44BB1Bbb56D
-*/
-
 contract DemoStorage {
     uint lastUid = 0;
     
@@ -83,7 +71,7 @@ contract DemoStorage {
             ad := mload(0x1C)
         }
         ad = address(ad);        
-        name = string(abi.encodePacked(sex? "Mr. " : "Ms. ", bytes32ToString2(bName)));
+        name = string(abi.encodePacked(sex? "Mr. " : "Ms. ", bytes32ToString(bName)));
         (age, duration) = getAge(time, y, m, d);
     }
 
@@ -157,7 +145,7 @@ contract DemoStorage {
         require(sum < 1099511627776, "too large amount on balance");
     }
 
-    function bytes32ToString2(bytes32 _bytes32) private pure returns (string memory) {
+    function bytes32ToString(bytes32 _bytes32) private pure returns (string memory) {
         bytes memory bytesArray = new bytes(32);
         for (uint256 i; i < 32; i++) {
             bytesArray[i] = _bytes32[i];
